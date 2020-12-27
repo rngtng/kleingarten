@@ -1,0 +1,26 @@
+on:
+  schedule:
+    - cron:  '* 12 * * *'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+          git checkout $BRANCH
+          mkdir -p _posts
+      - name: Check new version
+        uses: yoshum/issue-to-jekyll-post@v0
+        run: |
+          curl -s https://www.bdk-schoeneberg.de/bewerbungkleingaerten > page.html
+          git add .
+          git commit -m "Add a new version"
+      - name: Push Changes
+        run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git add .
+          git commit -m "Add post: ${{github.event.issue.title}}"
+          git pull --rebase
+          git push
