@@ -12,11 +12,11 @@ jobs:
       - name: Check new version
         run: |
           curl -s https://www.bdk-schoeneberg.de/bewerbungkleingaerten > page.html
+          git config user.name "kleingarten_bot"
+          git config user.email "kleingarten_bot@users.noreply.github.com"
           git add .
           git commit -m "Add a new version"
       - name: Push Changes
         if: ${{ success() }}
         run: |
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git push
