@@ -1,3 +1,4 @@
+name: Get latest version and commit changes
 on:
   schedule:
   - cron:  '* * * * *'
