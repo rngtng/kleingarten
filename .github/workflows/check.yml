@@ -1,7 +1,7 @@
 name: Get latest version and commit changes
 on:
   schedule:
-  - cron:  '0 18 * * *'
+  - cron:  '30 */3 * * *'
 
 jobs:
   check:
