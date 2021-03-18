@@ -11,6 +11,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Get latest version
         run: |
+          curl http://www.freie-schule-schoeneberg.de/anmeldung.html > schools/freie.html
+          curl https://www.freudbergschule.de/infoabend > schools/freudberg.html
           curl https://www.bdk-schoeneberg.de/bewerbungkleingaerten/ > page.html
           OUT=`cat page.html| sed -n 's/<a href="/\n/gp' | sed -n 's/">/\n/gp' | grep Freie_Kleingaerten`
           curl -sO https://www.bdk-schoeneberg.de$OUT
