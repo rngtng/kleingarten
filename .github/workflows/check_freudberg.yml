@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Get latest version
         run: |
-          curl https://www.freudbergschule.de/infoabend/ | awk -v RS="" '{split($0,a,"</html>"); print a[1]}' > schools/freudberg.html
+          curl -s https://www.freudbergschule.de/infoabend/ | awk -v RS="" '{split($0,a,"</html>"); print a[1]}' | grep -v nonce > schools/freudberg.html
       - name: Push Changes
         run: |
           git config user.name "freudberg_bot"
