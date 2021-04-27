@@ -14,7 +14,7 @@ jobs:
           curl https://www.bdk-schoeneberg.de/bewerbungkleingaerten/ > page.html
           OUT=`cat page.html| sed -n 's/<a href="/\n/gp' | sed -n 's/">/\n/gp' | grep Freie_Kleingaerten || echo ""`
           curl -sO https://www.bdk-schoeneberg.de$OUT || echo "No File"
-          mv *.pdf files/
+          mv *.pdf files/ || echo "No File"
       - name: Push Changes
         run: |
           git config user.name "kleingarten_bot"
