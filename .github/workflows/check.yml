@@ -13,7 +13,7 @@ jobs:
         run: |
           curl https://www.bdk-schoeneberg.de/bewerbungkleingaerten/ > page.html
           OUT=`cat page.html| sed -n 's/<a href="/\n/gp' | sed -n 's/">/\n/gp' | grep Freie_Kleingaerten`
-          curl -sO https://www.bdk-schoeneberg.de$OUT
+          curl -sO https://www.bdk-schoeneberg.de$OUT || echo "No File"
           mv *.pdf files/
       - name: Push Changes
         run: |
