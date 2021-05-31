@@ -1,4 +1,4 @@
-name: Get latest version and commit changes
+name: Walldorf check
 on:
   schedule:
   - cron:  '* 1 * * *'
