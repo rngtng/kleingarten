@@ -21,7 +21,7 @@ end
 
 
 rows = []
-Dir["files/*.pdf"] + Dir["files/**/*.pdf"].each do |file|
+Dir["files/*.pdf"] + Dir["files/old/*.txt"].each do |file|
   next unless file.include?("rei")
   filename = file.gsub(/-21-?n?\.pdf/, '-2021').gsub('-22.pdf', '-2022')
   date = Date.parse(filename).strftime("%d.%m.%Y") rescue nil

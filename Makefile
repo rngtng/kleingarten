@@ -22,10 +22,12 @@ test-gh-action:
 dev:
 	docker run --rm -it -v "$(shell pwd):/app" $(REGISTRY_TAG)
 
+# https://ademcan.net/blog/2013/04/10/how-to-convert-pdf-to-png-from-the-command-line-on-a-mac/
 files := $(wildcard files/old/*.pdf)
 %.txt:
-	@sips -s format png $(@:.txt=.pdf) --out /tmp/file.png
-	@tesseract /tmp/file.png $(@:.txt=)
+	@sips -s format png $(@:.txt=.pdf) --out $(@:.txt=.png)
+	@tesseract $(@:.txt=.png) $(@:.txt=)
+	@rm $(@:.txt=.png)
 
 convert: $(files:.pdf=.txt)
 
