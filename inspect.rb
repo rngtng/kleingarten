@@ -3,36 +3,22 @@
 require "bundler/setup"
 
 require 'terminal-table'
-# require 'poppler'
 require 'date'
-require 'yomu'
 
 def show(file)
-  # document = Poppler::Document.new(file)
-  # a = document.map { |page| page.get_text }.join
-
-  # reader = PDF::Reader.new(file)
-  # reader.pages[0].text
-
-data = File.read file
-text = Yomu.read :text, data
-require "pry";binding.pry
+  data = File.read file
+  data.split("preis").size
 end
 
-
 rows = []
-Dir["files/*.pdf"] + Dir["files/old/*.txt"].each do |file|
-  next unless file.include?("rei")
-  filename = file.gsub(/-21-?n?\.pdf/, '-2021').gsub('-22.pdf', '-2022')
-  date = Date.parse(filename).strftime("%d.%m.%Y") rescue nil
-  next unless date
-  # require "pry";binding.pry
+Dir["files/old/*.txt"].each do |file|
+  date = Date.parse(file) rescue nil
   rows << [
     date,
     show(file)
   ]
 end
 
-puts Terminal::Table.new :rows => rows
+puts Terminal::Table.new :rows => rows.sort_by! { |r| r[0] }
 
 # require "pry";binding.pry

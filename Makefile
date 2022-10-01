@@ -26,7 +26,7 @@ dev:
 files := $(wildcard files/old/*.pdf)
 %.txt:
 	@sips -s format png $(@:.txt=.pdf) --out $(@:.txt=.png)
-	@tesseract $(@:.txt=.png) $(@:.txt=)
+	@tesseract -l deu $(@:.txt=.png) $(@:.txt=)
 	@rm $(@:.txt=.png)
 
 convert: $(files:.pdf=.txt)
