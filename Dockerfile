@@ -8,7 +8,7 @@ RUN set -ex \
 
 RUN mkdir /app
 
-COPY Gemfile *.lock /app/
+COPY Gemfile Gemfile.lock /app/
 
 WORKDIR /app
 RUN bundle install

@@ -22,6 +22,11 @@ test-gh-action:
 dev:
 	docker run --rm -it -v "$(shell pwd):/app" $(REGISTRY_TAG)
 
+.PHONY: run #
+run: build
+	docker run --rm -it --entrypoint=ruby $(REGISTRY_TAG) ./inspect.rb > timeline.html
+
+
 # https://ademcan.net/blog/2013/04/10/how-to-convert-pdf-to-png-from-the-command-line-on-a-mac/
 files := $(wildcard files/old/*.pdf)
 %.txt:
@@ -29,6 +34,7 @@ files := $(wildcard files/old/*.pdf)
 	@tesseract -l deu $(@:.txt=.png) $(@:.txt=)
 	@rm $(@:.txt=.png)
 
+.PHONY: convert # Transform pdf to text
 convert: $(files:.pdf=.txt)
 
 clean:

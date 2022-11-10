@@ -63,8 +63,14 @@ end
 Dir["files/old/*.txt"].each do |file|
   # `cp #{file.gsub(".txt", ".pdf")} files/norm/#{Date.parse(file)}.pdf`
   combine(lines(file)).map do |line|
-    name, nr, prize = *line.scan(/([^\d]+)(\d+)[^\d]+([\d.]+)/i).first
-    entry = Entry.new(name, nr, prize.delete("."), file)
+    entry = begin
+      line.gsub!("bitte erfragen", "0")
+      line.gsub!("ca.", "0")
+      name, nr, prize = *line.scan(/([^\d]+)(\d+)[^\d]+([\d.]+)/i).first
+      Entry.new(name, nr, prize.delete("."), file)
+    rescue
+      require "pry";binding.pry
+    end
     if @entries[entry.to_s]
       @entries[entry.to_s].files << entry.files.first
     else
