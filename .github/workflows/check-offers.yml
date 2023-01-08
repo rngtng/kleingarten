@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Get latest version
         run: |
-          result=$(curl -s $URL  -c cookies --data-raw $QUERY| jq -r '.addmarkers')
+          result=$(curl -s $URL  -c /dev/null --data-raw $QUERY | jq -r '.addmarkers')
 
           s=$result$delimiter
           offers=();
