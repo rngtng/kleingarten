@@ -1,7 +1,7 @@
 name: Check Offers
 on:
   schedule:
-  - cron:  '30 * * * *'
+  - cron:  '*/20 * 7-20 * 1-5'
 
 jobs:
   check:
