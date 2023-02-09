@@ -15,6 +15,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Get latest version
         run: |
+          git config user.name "offer_bot"
+          git config user.email "offer_bot@users.noreply.github.com"
           result=$(curl -s $URL  -c /dev/null --data-raw $QUERY | jq -r '.addmarkers')
 
           s=$result$delimiter
@@ -27,12 +29,9 @@ jobs:
           for offer in "${offers[@]}"; do
             offer=`echo $offer | sed 's/\[//g' | sed 's/]//g'`
             filename=`echo $offer | md5sum | cut -f1 -d" "`
+            text=`echo $offer | cut -f6 -d"'" | cut -f1 -d"&" | sed -e 's/<[^>]*>//g'`
             echo $offer > offers/$filename
+            git add offers/$filename
+            git commit -m "Offer:\n$text"
+            git push
           done
-      - name: Push Changes
-        run: |
-          git config user.name "offer_bot"
-          git config user.email "offer_bot@users.noreply.github.com"
-          git add .
-          git commit -m "Offer: add a new version" || echo "No changes to commit"
-          git push
