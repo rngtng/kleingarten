@@ -32,6 +32,6 @@ jobs:
             text=`echo $offer | cut -f6 -d"'" | cut -f1 -d"&" | sed -e 's/<[^>]*>//g'`
             echo $offer > offers/$filename
             git add offers/$filename
-            git commit -m "Offer:\n$text"
+            git commit -m "$text"
             git push
           done
