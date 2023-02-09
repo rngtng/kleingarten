@@ -33,7 +33,8 @@ jobs:
             echo $offer > offers/$filename
             git add offers/$filename
             git commit -m "$text"
-            git push || echo "No changes to push"
+            git push
           done
-
-          echo "done"
+      - name: Cleanup
+        run: |
+          echo "all done"
