@@ -6,7 +6,7 @@ require "git"
 require "json"
 
 mapping = {}
-Git.open(".").log(1000).each do |commit|
+Git.open(".").log(100).each do |commit|
   commit.diff_parent.map do |diff|
     if diff.path.include?("pdf")
       mapping[diff.path] ||= []
