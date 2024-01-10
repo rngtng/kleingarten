@@ -11,6 +11,7 @@ This Job checks https://www.bdk-schoeneberg.de regulary
 See [timeline here](timeline.html)
 
 ```mermaid
+classDiagram
     Animal <|-- Duck
     Animal <|-- Fish
     Animal <|-- Zebra
